@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.baizhi.dao.EmpDao">
+
+    <resultMap id="empResultMap" type="com.baizhi.entity.Emp">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="salary" property="salary"/>
+        <result column="age" property="age"/>
+        <result column="sex" property="sex"/>
+        <association property="dept" javaType="com.baizhi.entity.Dept">
+            <result column="did" property="id"/>
+            <result column="dname" property="name"/>
+        </association>
+    </resultMap>
+
+    <select id="selectAll"  resultMap="empResultMap">
+        select t1.*,t2.id did,t2.name dname from t_ems_employees t1
+        left join t_ems_departments t2
+        on t1.dept_id =t2.id
+    </select>
+
+    <insert id="insertEmp">
+        insert into t_ems_employees(name,salary,age,sex,dept_id)
+        values(#{name},#{salary},#{age},#{sex},#{dept.id})
+    </insert>
+
+
+    <update id="updateEmp">
+        update t_ems_employees set dept_id=#{dept.id},name=#{name},salary=#{salary}
+         ,age=#{age},sex=#{sex} where id = #{id}
+    </update>
+
+    <delete id="deleteEmp">
+        DELETE FROM t_ems_employees where id = #{id}
+    </delete>
+
+    <select id="selectOne"  resultMap="empResultMap">
+        select t1.*,t2.id did,t2.name dname from t_ems_employees t1
+        left join t_ems_departments t2
+        on t1.dept_id =t2.id
+        where t1.id = #{id}
+    </select>
+
+    <delete id="deleteSome">
+        DELETE FROM t_ems_employees where id in
+        <foreach collection="array" separator="," item="i" open="(" close=")">
+            #{i}
+        </foreach>
+    </delete>
+
+</mapper>

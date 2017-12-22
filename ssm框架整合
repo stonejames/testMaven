@@ -1,0 +1,15 @@
+一、Spring 和 mybatis整合，连接数据库,进行Junit测试
+    jdbc.properties : 数据库信息配置！
+    spring-mybatis.xml ： Spring和Mybatis集成配置！
+    applicationContext.xml ：Spring的相关配置！
+    logback.xml : 日志输出信息配置！（不做介绍，详细信息查看源码）
+
+    建包
+    建实体类      User
+    建dao层接口   UserDao
+    建Mapper文件  UserMapper.xml
+    建service层   UserService
+    测试          Test01
+
+二、整合SpringMVC
+    spring-mvc.xml
